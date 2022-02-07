@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+    .no-more {
+  opacity: 0;
+}
+     </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Articles index</h1>
+     <a href="{{ path('articles_new') }}">Create new</a>
+<div class="row container_infinite_scroll"> 
+        {% for article in articles %}
+    <div class="card text-white bg-success mb-3 item_infinite_scroll" style="max-width: 18rem;">
+           <div class="card-header">{{article.Title}}</div>
+           <div class="card-body">
+           <p class="card-text">{{article.Text}}</p>
+           </div>
+    </div>
+         {% else %}
+            <tr>
+                <td colspan="4">No hay registros</td>
+            </tr>
+        {% endfor %}
+</div>
+<center><div id="spinner1" class="spinner">Cargando...</div> </center>
+<div class="no-more">No hay mas datos</div>
+
+        <div class=" row d-flex justify-content-centere">
+        <div class="navigation">
+    {{ knp_pagination_render(articles) }}
+    </div>
+</div>
+      
+   
+
+   
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/@webcreate/infinite-ajax-scroll/dist/infinite-ajax-scroll.min.js"></script>
+    <script src="{{ asset('js/scroll.js') }}"></script>
+{% endblock %} 
